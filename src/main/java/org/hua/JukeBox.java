@@ -12,22 +12,6 @@ public class JukeBox{
     public static void main (String[] args) throws IOException {
         CommandLine cmd = new CommandLine();
         Path path = Paths.get(args[0]);
-//        System.out.println(args[0]);
-//        System.out.println(path);
-//        System.out.println(path.getFileName());
-//        System.out.println(path.getParent());
-//        System.out.println(path.isAbsolute());
-//        System.out.println(path.getRoot());
-//        System.out.println(path.toAbsolutePath());
-////        System.out.println(path.toRealPath());
-//        path = path.relativize(path);
-//        System.out.println("Relativize: " + path);
-//        if (path.isAbsolute()) {
-//            Path parent = path.getParent();
-//        } else if (path.toString().contains(""))
-//
-
-
 
         String onlypath = path.toString().substring(0, path.toString().lastIndexOf("/")+1); //path - without the file
         Player p =  PlayerFactory.getPlayer();
