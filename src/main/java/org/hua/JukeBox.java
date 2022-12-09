@@ -12,6 +12,10 @@ public class JukeBox{
     public static void main (String[] args) throws IOException {
         CommandLine cmd = new CommandLine();
         Path path = Paths.get(args[0]);
+<<<<<<< HEAD
+=======
+
+>>>>>>> eed9bc2d922fd6d64c36b91af679db8a206e64f5
 
         String onlypath = path.toString().substring(0, path.toString().lastIndexOf("/")+1); //path - without the file
         Player p =  PlayerFactory.getPlayer();
