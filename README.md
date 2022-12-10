@@ -2,7 +2,7 @@
 
 This is a simple terminal based Jukebox implementation, for our first assignment in Object-Oriented Programming using Java ( 3rd semester at Harokopio University )
 
-(Still on progress...)
+(Still in progress...)
 
 
 It only works with mp3 and m3u files, and supports the following functionalities:
