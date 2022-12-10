@@ -1,8 +1,6 @@
 package org.hua;
 
 import java.io.*;
-import java.nio.file.Path;
-import java.nio.file.Paths;
 
 import gr.hua.dit.oop2.musicplayer.Player;
 import gr.hua.dit.oop2.musicplayer.PlayerException;
@@ -10,13 +8,10 @@ import gr.hua.dit.oop2.musicplayer.PlayerFactory;
 public class JukeBox{
 
     public static void main (String[] args) throws IOException {
+
         CommandLine cmd = new CommandLine();
-
-            File path = new File(args[0]);
-            String parent = path.getCanonicalPath().substring(0, path.getCanonicalPath().lastIndexOf("/"))+"/";
-
-
-        System.out.println("Parent is: " + parent);
+        File path = new File(args[0]);
+        String parent = path.getCanonicalPath().substring(0, path.getCanonicalPath().lastIndexOf("/"))+"/";
 
         Player p =  PlayerFactory.getPlayer();
 
