@@ -11,23 +11,23 @@ public class JukeBox{
 
     public static void main (String[] args) throws IOException {
         CommandLine cmd = new CommandLine();
-        Path path = Paths.get(args[0]);
-<<<<<<< HEAD
-=======
 
->>>>>>> eed9bc2d922fd6d64c36b91af679db8a206e64f5
+            File path = new File(args[0]);
+            String parent = path.getCanonicalPath().substring(0, path.getCanonicalPath().lastIndexOf("/"))+"/";
 
-        String onlypath = path.toString().substring(0, path.toString().lastIndexOf("/")+1); //path - without the file
+
+        System.out.println("Parent is: " + parent);
+
         Player p =  PlayerFactory.getPlayer();
 
         try {
             if (args.length == 2) {
-                cmd.choice(args[0], args[1], p, onlypath);
+                cmd.choice(args[0], args[1], p, parent);
             } else {
                 if (!args[0].endsWith(".m3u")) {
-                    cmd.choice(args[0], "mp3Order", p, onlypath);
+                    cmd.choice(args[0], "mp3Order", p, parent);
                 } else {
-                    cmd.choice(args[0], "m3uOrder", p, onlypath);
+                    cmd.choice(args[0], "m3uOrder", p, parent);
                 }
             }
         }catch (FileNotFoundException e) {

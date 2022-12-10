@@ -76,10 +76,10 @@ public class CommandLine
         } else if (choice.equals("m3uOrder") || song.endsWith(".m3u")) {
 
             for (String loop : music) {
-                if (loop.startsWith("/")) {
+                if (loop.startsWith("/") || loop.startsWith("..")) {
                     file = new FileInputStream(loop);
                 } else {
-                    file = new FileInputStream(path + loop);
+                    file = new FileInputStream( path + loop);
                 }
                 System.out.println("\nNow Playing: " + ANSI_GREEN + loop.substring(loop.lastIndexOf("/")+1) + ANSI_RESET);
                 if (counter == music.size()-1) {
