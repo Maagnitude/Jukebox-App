@@ -1,5 +1,7 @@
 package org.hua;
 
+import com.mpatric.mp3agic.InvalidDataException;
+import com.mpatric.mp3agic.UnsupportedTagException;
 import gr.hua.dit.oop2.musicplayer.Player;
 import gr.hua.dit.oop2.musicplayer.PlayerException;
 import java.io.FileInputStream;
@@ -7,6 +9,7 @@ import java.io.FileInputStream;
 import java.io.*;
 import java.util.ArrayList;
 import java.util.Collections;
+
 
 public class CommandLine
 {
@@ -17,6 +20,8 @@ public class CommandLine
     private ArrayList<String> songs=new ArrayList<>();
     private ArrayList<String> oldArray = new ArrayList<>();
     public ArrayList<String> music = new ArrayList<>();
+
+    private ArrayList<String> notListed = new ArrayList<>();
     private InputStream file;
     public CommandLine() {}
     public void loop (Player player, String song) throws PlayerException, FileNotFoundException {
@@ -46,11 +51,13 @@ public class CommandLine
             player.play(file);
         }
     }
-    public void order(Player player, String song, String choice, String path) throws PlayerException, FileNotFoundException{
+    public void order(Player player, String song, String choice, String path) throws PlayerException, IOException, InvalidDataException, UnsupportedTagException {
         int counter=0;
+        FileHandling fileHandling = new FileHandling();
         if (choice.equals("order") || choice.equals("mp3Order")) {
             for (String loop : songs) {
                 file = new FileInputStream(loop);
+                fileHandling.mp3Reader(loop);
                 System.out.println("\nNow Playing: " + ANSI_GREEN + loop.substring(loop.lastIndexOf("/")+1) + ANSI_RESET);
                 if (counter == songs.size()-1) {
                     System.out.println("You reached " + ANSI_RED + "the end of the playlist." + ANSI_RESET + "\nHope you enjoyed it!\n");
@@ -130,7 +137,7 @@ public class CommandLine
     }
 
 
-    public void choice (String song, String choice, Player player, String path) throws PlayerException, IOException {
+    public void choice (String song, String choice, Player player, String path) throws PlayerException, IOException, InvalidDataException, UnsupportedTagException {
         if(choice.equals("order")){
             if (song.endsWith(".m3u")) {
                 FileHandling fileHandling = new FileHandling();
@@ -140,7 +147,7 @@ public class CommandLine
             } else {
                 FileHandling fileHandling = new FileHandling();
                 final File folder = new File(song);
-                fileHandling.opener(folder, songs);//βαζω το path του φακελου και οχι το τραγουδι
+                fileHandling.opener(folder, songs,notListed);//βαζω το path του φακελου και οχι το τραγουδι
                 order(player, song, choice, path);
                 file.close();
             }
@@ -160,7 +167,7 @@ public class CommandLine
             } else {
                 FileHandling fileHandling = new FileHandling();
                 final File folder = new File(song);
-                fileHandling.opener(folder, songs);//βαζω το path του φακελου και οχι το τραγουδι
+                fileHandling.opener(folder, songs,notListed);//βαζω το path του φακελου και οχι το τραγουδι
                 order(player, song, choice, path);
                 file.close();
             }

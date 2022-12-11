@@ -4,6 +4,8 @@ import java.io.*;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 
+import com.mpatric.mp3agic.InvalidDataException;
+import com.mpatric.mp3agic.UnsupportedTagException;
 import gr.hua.dit.oop2.musicplayer.Player;
 import gr.hua.dit.oop2.musicplayer.PlayerException;
 import gr.hua.dit.oop2.musicplayer.PlayerFactory;
@@ -34,6 +36,10 @@ public class JukeBox{
             System.err.println("File " +args[0]+" not found");
         } catch (PlayerException e) {
             System.err.println("Something's wrong with the player: " + e.getMessage());
+        } catch (InvalidDataException e) {
+            throw new RuntimeException(e);
+        } catch (UnsupportedTagException e) {
+            throw new RuntimeException(e);
         } finally {
             if (p != null)
                 p.close();

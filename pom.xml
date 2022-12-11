@@ -19,6 +19,13 @@
             <artifactId>musicplayer</artifactId>
             <version>1.0.0</version>
         </dependency>
+
+        <dependency>
+            <groupId>com.mpatric</groupId>
+            <artifactId>mp3agic</artifactId>
+            <version>0.9.1</version>
+        </dependency>
+
     </dependencies>
 
     <repositories>
@@ -26,6 +33,7 @@
             <id>gitlab-maven</id>
             <url>https://gitlab.com/api/v4/projects/41008035/packages/maven</url>
         </repository>
+
     </repositories>
     <build>
         <plugins>
