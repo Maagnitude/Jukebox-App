@@ -21,6 +21,10 @@ public class FileHandling {
                     music.add(s.substring(7));
                     System.out.println((i++) + ". " + s.substring(s.lastIndexOf("/") + 1));
                     s = in2.readLine();
+                } else if (s.contains("\\")) {
+                    music.add(s);
+                    System.out.println((i++) + ". " + s.substring(s.lastIndexOf("\\") + 1));
+                    s = in2.readLine();
                 } else {
                     music.add(s);
                     System.out.println((i++) + ". " + s);
