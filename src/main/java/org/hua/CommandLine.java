@@ -7,13 +7,14 @@ import java.io.FileInputStream;
 import java.io.*;
 import java.util.ArrayList;
 import java.util.Collections;
-import org.apache.logging.log4j.Logger;
-import org.apache.logging.log4j.LogManager;
+import java.util.logging.Logger;
+import java.util.logging.Level;
+
 
 
 public class CommandLine
 {
-    final Logger logger = LogManager.getLogger(CommandLine.class);
+
 
     public static final String ANSI_RED = "\u001B[31m";
     public static final String ANSI_GREEN = "\u001B[32m";
@@ -109,7 +110,7 @@ public class CommandLine
                 try {
                     Thread.sleep(1000);
                 } catch (InterruptedException e) {
-                    logger.error(new RuntimeException(e));
+                    LogHandler.writeToLog(Level.SEVERE,"Runtime Exception");
                     throw new RuntimeException(e);
 
                 }
@@ -139,7 +140,7 @@ public class CommandLine
 
         }
         player.close();
-        logger.info("Closing the player");
+        //logger.info("Closing the player");
     }
 
 
@@ -149,7 +150,7 @@ public class CommandLine
                 FileHandling fileHandling = new FileHandling();
 
                 if (song.endsWith(".m3u")) {
-                    logger.info("Opening m3u");
+                    //logger.info("Opening m3u");
                     fileHandling.openerM3u(song, music);
                     choice = "m3uOrder";
                     order(player, song, choice, path);
@@ -158,7 +159,7 @@ public class CommandLine
                     fileHandling.opener(folder, songs, notmp3);//βαζω το path του φακελου και οχι το τραγουδι
                     order(player, song, choice, path);
                     file.close();
-                    logger.info("Closing file");
+                    //logger.info("Closing file");
                 }
                 break;
             case "loop":
