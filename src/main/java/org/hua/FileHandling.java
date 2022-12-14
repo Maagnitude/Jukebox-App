@@ -3,12 +3,8 @@ package org.hua;
 import java.io.*;
 import java.util.ArrayList;
 import java.util.Objects;
-import org.apache.logging.log4j.Logger;
-import org.apache.logging.log4j.LogManager;
-
 
 public class FileHandling {
-    final Logger logger = LogManager.getLogger(FileHandling.class);
     public boolean fileChecker (String filename) {
         return filename.endsWith(".mp3");
     }

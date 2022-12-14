@@ -7,20 +7,15 @@ import java.io.FileInputStream;
 import java.io.*;
 import java.util.ArrayList;
 import java.util.Collections;
-import org.apache.logging.log4j.Logger;
-import org.apache.logging.log4j.LogManager;
-
 
 public class CommandLine
 {
-    final Logger logger = LogManager.getLogger(CommandLine.class);
 
     public static final String ANSI_RED = "\u001B[31m";
     public static final String ANSI_GREEN = "\u001B[32m";
     public static final String ANSI_RESET = "\u001B[37m";
     private final ArrayList<String> songs=new ArrayList<>();
     private final ArrayList<String> oldArray = new ArrayList<>();
-
     public ArrayList<String> music = new ArrayList<>();
     public ArrayList<String> notmp3 = new ArrayList<>();
     private InputStream file;
@@ -109,9 +104,7 @@ public class CommandLine
                 try {
                     Thread.sleep(1000);
                 } catch (InterruptedException e) {
-                    logger.error(new RuntimeException(e));
                     throw new RuntimeException(e);
-
                 }
             }
         }
@@ -136,10 +129,8 @@ public class CommandLine
                 System.out.println("You reached the end of the playlist. Hope you enjoyed it!");
             }
             player.play(file);
-
         }
         player.close();
-        logger.info("Closing the player");
     }
 
 
@@ -147,9 +138,7 @@ public class CommandLine
         switch (choice) {
             case "order":
                 FileHandling fileHandling = new FileHandling();
-
                 if (song.endsWith(".m3u")) {
-                    logger.info("Opening m3u");
                     fileHandling.openerM3u(song, music);
                     choice = "m3uOrder";
                     order(player, song, choice, path);
@@ -158,7 +147,6 @@ public class CommandLine
                     fileHandling.opener(folder, songs, notmp3);//βαζω το path του φακελου και οχι το τραγουδι
                     order(player, song, choice, path);
                     file.close();
-                    logger.info("Closing file");
                 }
                 break;
             case "loop":
