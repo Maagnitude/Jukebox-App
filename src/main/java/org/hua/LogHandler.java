@@ -9,6 +9,9 @@ public class LogHandler {
     private static final String logFileName = "app.log";
 
     private static ExecutorService executor;
+    public static void writeToLogNoThread(Level level, String message) {
+        LogSave.writeToLogNow(level, message);
+    }
 
     /**
      * Saves LogRecord to Logger using ThreadPool - most used.
@@ -18,7 +21,7 @@ public class LogHandler {
      */
     public static void writeToLog(Level level, String message) {
         if (executor == null) {    // checks if threadpool has been initialized - initializes if not.
-            executor = Executors.newFixedThreadPool(6);
+            executor = Executors.newFixedThreadPool(1);
         }
         executor.execute(new LogSave(level, message));    // executes thread.
     }

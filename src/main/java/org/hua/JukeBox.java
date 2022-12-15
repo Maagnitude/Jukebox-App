@@ -40,30 +40,30 @@ public class JukeBox{
             if (args[0].contains("/")) {
                 //System.err.println("Please check that you give the correct path, " +
                         //"or that there is no typo in the path given.\n");
-                LogHandler.writeToLog(Level.SEVERE, "Please check that you give the correct path, " +
+                LogHandler.writeToLogNoThread(Level.SEVERE, "Please check that you give the correct path, " +
                         "or that there is no typo in the path given.\n");
             } else if (args[0].contains("mp3")) {
                 //System.err.println("Please check that '" + args[0] + "' is in the same directory with the jar file, " +
                        // "or that there is no typo in the file given.\n");
-                LogHandler.writeToLog(Level.SEVERE,"Please check that '" + args[0] + "' is in the same directory with the jar file, " +
+                LogHandler.writeToLogNoThread(Level.SEVERE,"Please check that '" + args[0] + "' is in the same directory with the jar file, " +
                         "or that there is no typo in the file given.\n");
             } else if (args[0].contains("m3u")) {
                 //System.err.println("Please check that '" + args[0] + "' is in the same directory with the jar file, " +
                         //"or that there is no typo in the file given.\n");
-                LogHandler.writeToLog(Level.SEVERE,"Please check that '" + args[0] + "' is in the same directory with the jar file, " +
+                LogHandler.writeToLogNoThread(Level.SEVERE,"Please check that '" + args[0] + "' is in the same directory with the jar file, " +
                         "or that there is no typo in the file given.\n");
             } else {
                 //System.err.println("Please check that there is not typo in '" + args[0] + "'.\n");
-                LogHandler.writeToLog(Level.SEVERE,"Please check that there is not typo in '" + args[0] + "'.\n");
+                LogHandler.writeToLogNoThread(Level.SEVERE,"Please check that there is not typo in '" + args[0] + "'.\n");
             }
         } catch (PlayerException e) {                                                       // catches a problem caused by the player. Maybe a format that the player doesn't support.
             LogHandler.writeToLog(Level.SEVERE,"Something's wrong with the player: " + e.getMessage());
         } catch (NullPointerException e) {                                                  // catches a directory that doesn't exist. It only works if there is not file extension
-            LogHandler.writeToLog(Level.SEVERE,"The path you entered has a typo. Please fix it.\n");
-            LogHandler.writeToLog(Level.SEVERE,"Error Message Logged !!!");// because it sees that as a directory.
+            LogHandler.writeToLogNoThread(Level.SEVERE,"The path you entered has a typo. Please fix it.\n");
+            LogHandler.writeToLogNoThread(Level.SEVERE,"Error Message Logged !!!");// because it sees that as a directory.
         } finally {
             if (p != null){
-                LogHandler.writeToLog(Level.SEVERE,"Closing the player");
+                LogHandler.writeToLogNoThread(Level.SEVERE,"Closing the player");
                 p.close();}
         }
     }
