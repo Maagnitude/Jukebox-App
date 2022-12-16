@@ -7,12 +7,14 @@
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
         <module name="JukeBox" />
+        <module name="Jukebox-App" />
       </profile>
     </annotationProcessing>
   </component>
   <component name="JavacSettings">
     <option name="ADDITIONAL_OPTIONS_OVERRIDE">
       <module name="JukeBox" options="-parameters" />
+      <module name="Jukebox-App" options="-parameters" />
     </option>
   </component>
 </project>

@@ -7,6 +7,7 @@ import java.io.FileInputStream;
 import java.io.*;
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.logging.Level;
 
 public class CommandLine
 {
@@ -58,11 +59,13 @@ public class CommandLine
                 System.out.println("\nNow Playing: " + ANSI_GREEN + item.substring(item.lastIndexOf("/") + 1) + ANSI_RESET);
                 if (counter1 == songs.size() - 1) {
                     System.out.println("You reached " + ANSI_RED + "the end of the playlist." + ANSI_RESET + "\nHope you enjoyed it!\n");
+                    LogHandler.writeToLogNoThread(Level.INFO,"Playing the file");
                     player.play(file);
                     System.out.println("Thanks for using our media player!\n");
                     try {
                         Thread.sleep(1000);
                     } catch (InterruptedException e) {
+                        LogHandler.writeToLogNoThread(Level.SEVERE,"RuntimeException error");
                         throw new RuntimeException(e);
                     }
                     return;
@@ -72,8 +75,10 @@ public class CommandLine
                 player.play(file);
                 System.out.println("Next song loading...");
                 try {
+                    LogHandler.writeToLogNoThread(Level.INFO,"Thread is sleeping for a second");
                     Thread.sleep(1000);
                 } catch (InterruptedException e) {
+                    LogHandler.writeToLogNoThread(Level.SEVERE,"RuntimeException error");
                     throw new RuntimeException(e);
                 }
             }
@@ -88,11 +93,14 @@ public class CommandLine
                 System.out.println("\nNow Playing: " + ANSI_GREEN + loop.substring(loop.lastIndexOf("/") + 1) + ANSI_RESET);
                 if (counter1 == music.size() - 1) {
                     System.out.println("You reached " + ANSI_RED + "the end of the playlist." + ANSI_RESET + "\nHope you enjoyed it!\n");
+                    LogHandler.writeToLogNoThread(Level.INFO,"Playing the file");
                     player.play(file);
                     System.out.println("Thanks for using our media player!\n");
                     try {
+                        LogHandler.writeToLogNoThread(Level.INFO,"The thread is sleeping for a second");
                         Thread.sleep(1000);
                     } catch (InterruptedException e) {
+                        LogHandler.writeToLogNoThread(Level.SEVERE,"InterruptedException Error");
                         throw new RuntimeException(e);
                     }
                     return;
@@ -110,7 +118,7 @@ public class CommandLine
         }
     }
     public void random (Player player, String path) throws PlayerException, FileNotFoundException {
-
+        LogHandler.writeToLogNoThread(Level.INFO,"We're keeping the old playlist");
         oldArray.addAll(music);  //για να κρατήοσουμε και την παλιά playlist
         Collections.shuffle(music);
         System.out.println("\nYou can always quit, by entering " + ANSI_RED + "Ctrl+C" + ANSI_RESET + " or "  +
@@ -128,8 +136,10 @@ public class CommandLine
             } else {
                 System.out.println("You reached the end of the playlist. Hope you enjoyed it!");
             }
+            LogHandler.writeToLogNoThread(Level.INFO,"Playing the file");
             player.play(file);
         }
+        LogHandler.writeToLogNoThread(Level.INFO,"Closing the file");
         player.close();
     }
 
@@ -139,22 +149,30 @@ public class CommandLine
             case "order":
                 FileHandling fileHandling = new FileHandling();
                 if (song.endsWith(".m3u")) {
+                    LogHandler.writeToLogNoThread(Level.INFO,"Opening the m3u file");
                     fileHandling.openerM3u(song, music);
                     choice = "m3uOrder";
+                    LogHandler.writeToLogNoThread(Level.INFO,"the songs will be played with order");
                     order(player, song, choice, path);
                 } else {
                     final File folder = new File(song);
+                    LogHandler.writeToLogNoThread(Level.INFO,"Opening the directory with mp3 songs");
                     fileHandling.opener(folder, songs, notmp3);//βαζω το path του φακελου και οχι το τραγουδι
+                    LogHandler.writeToLogNoThread(Level.INFO,"the songs will be played with order");
                     order(player, song, choice, path);
+                    LogHandler.writeToLogNoThread(Level.INFO,"Closing the file");
                     file.close();
                 }
                 break;
             case "loop":
+                LogHandler.writeToLogNoThread(Level.INFO,"Looping the song that you gave");
                 loop(player, song);
                 break;
             case "random": {
                 fileHandling = new FileHandling();
+                LogHandler.writeToLogNoThread(Level.INFO,"Opening m3u file");
                 fileHandling.openerM3u(song, music);
+                LogHandler.writeToLogNoThread(Level.INFO,"Playing the m3u songs randomly");
                 random(player, path);
                 break;
             }
@@ -164,22 +182,29 @@ public class CommandLine
                     System.out.println("\nNow Playing: " + ANSI_GREEN + song.substring(song.lastIndexOf("/") + 1) +
                             ANSI_RESET + " (to the end)\n\nYou can always quit, by entering " + ANSI_RED + "Ctrl+C" +
                             ANSI_RESET + " or " + ANSI_RED + "Ctrl+Z\n" + ANSI_RESET);
+                    LogHandler.writeToLogNoThread(Level.INFO,"Start playing the mp3 file");
                     player.play(file);
                 } else {
                     fileHandling = new FileHandling();
                     final File folder = new File(song);
+                    LogHandler.writeToLogNoThread(Level.INFO,"Opening a new FileHandling");
                     fileHandling.opener(folder, songs, notmp3);//βαζω το path του φακελου και οχι το τραγουδι
                     order(player, song, choice, path);
+                    LogHandler.writeToLogNoThread(Level.INFO,"Closing the file");
                     file.close();
                 }
                 break;
             case "m3uOrder": {
                 fileHandling = new FileHandling();
+                LogHandler.writeToLogNoThread(Level.INFO,"Opening the m3u file");
                 fileHandling.openerM3u(song, music);
+                LogHandler.writeToLogNoThread(Level.INFO,"Now the songs of m3u will be played");
                 order(player, song, choice, path);
+                LogHandler.writeToLogNoThread(Level.INFO,"Ending");
                 break;
             }
             default:
+                LogHandler.writeToLogNoThread(Level.SEVERE,"Wrong command. Exiting the program");
                 System.out.println("You gave wrong command");
                 System.exit(1);
         }
