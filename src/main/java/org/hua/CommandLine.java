@@ -136,8 +136,8 @@ public class CommandLine
                 System.out.println("You reached " + ANSI_RED +  "the end of the playlist" + ANSI_RESET + ". Hope you enjoyed it!");
             }
             player.play(file);
-            System.out.println("Thanks for using our media player! " + ANSI_GREEN +  "Have a great day!\n" + ANSI_RESET);
         }
+        System.out.println("Thanks for using our media player! " + ANSI_GREEN +  "Have a great day!\n" + ANSI_RESET);
         LogHandler.writeToLogNoThread(Level.INFO,"Closing the file");
         player.close();
     }
