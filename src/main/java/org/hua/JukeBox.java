@@ -12,6 +12,12 @@ public class JukeBox{
     public static void main (String[] args) throws IOException, InterruptedException {
 
         CommandLine cmd = new CommandLine();
+        try {
+            String arg = args[0];       // Just to catch an exception if the user doesn't give an argument.
+        } catch (ArrayIndexOutOfBoundsException o) {
+            System.err.println("Please give at least one argument.");
+            System.exit(1);
+        }
         File path = new File(args[0]);          // getting the given path
         String parent;
 
