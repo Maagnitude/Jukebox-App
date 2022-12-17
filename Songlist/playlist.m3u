@@ -1,0 +1,7 @@
+#EXTM3U
+#EXTINF:10,test1.mp3
+test1.mp3
+#EXTINF:13,test2.mp3
+test2.mp3
+#EXTINF:12,test3.mp3
+test3.mp3
